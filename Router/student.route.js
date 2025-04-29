@@ -5,7 +5,7 @@ import {
   getAllStudent,
   getStudentById,
   updateStudent,
-  deleteStudent,
+  deleteStudent,  
   loginStudent,
 } from "../Controller/student.controller.js";
 const router = express.Router();
@@ -17,3 +17,4 @@ router.put("/:id", upload.single("image"), updateStudent);
 router.delete("/:id", deleteStudent);
 
 export default router;
+

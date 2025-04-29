@@ -7,7 +7,6 @@ import {
   updateTeacher,
   deleteTeacher,
 } from "../Controller/teacher.controller.js";
-
 const router = express.Router();
 router.get("/test", (req, res) => {
   res.send("Hello from teacher route");

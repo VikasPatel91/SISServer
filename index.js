@@ -19,6 +19,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.get("/", (req,res) => {res.send("Welcome to the server")});
 app.use("/api/teacher", teacherRoutes);
 app.use("/api/finance", financeRouter);
 app.use(`/api/student`, studentRoutes);

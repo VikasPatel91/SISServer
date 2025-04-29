@@ -32,7 +32,7 @@ const StudentSchema = new mongoose.Schema({
     loanPurpose: String,
     repaymentCapacityEstimate: Number,
   },
-
+       
   documents: {
     incomeCertificate: String,
     feeStructure: String,

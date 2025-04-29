@@ -19,7 +19,7 @@ export const createStudent = async (req, res) => {
       ...body,
       documents,
     });
-
+ 
     await newStudent.save();
 
     res.status(201).json({

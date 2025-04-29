@@ -1,9 +1,9 @@
 import express from "express";
 import {
   createStudent,
-  getAllStudents,
+  getAllStudents,   
   getStudentById,
-  updateStudent,
+  updateStudent,    
   deleteStudent,
 } from "../Controller/finance.controller.js";
 import uploadDocument from "../Middleware/uploadDocument.js";

@@ -2,7 +2,6 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 
-// Create the uploads directory if not exists
 const uploadPath = "uploads/documents";
 if (!fs.existsSync(uploadPath)) fs.mkdirSync(uploadPath, { recursive: true });
 
@@ -28,6 +27,6 @@ const uploadDocuments = multer({
     }
     cb(null, true);
   },
-});
+});  
 
 export default uploadDocuments;
