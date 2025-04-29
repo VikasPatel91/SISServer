@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import studentRoutes from "./Router/student.route.js";
 import teacherRoutes from "./Router/teacher.route.js";
 import testRouter from "./Router/test.route.js";
+import financeRouter from "./Router/finance.router.js";
 import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
@@ -19,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use("/api/teacher", teacherRoutes);
-
+app.use("/api/finance", financeRouter);
 app.use(`/api/student`, studentRoutes);
 app.use(`/api/test`, testRouter);
 

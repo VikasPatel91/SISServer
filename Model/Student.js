@@ -11,7 +11,7 @@ const ChildSchema = new mongoose.Schema({
   class: { type: Number },
   course: { type: String },
   school: { type: String },
-  behavior: { type: String },
+  behavior: { type: String }, 
   gpa: { type: Number },
   attendance: { type: String },
   collegeName: { type: String },
