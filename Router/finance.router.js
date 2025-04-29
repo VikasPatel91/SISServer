@@ -5,9 +5,8 @@ import {
   getStudentById,
   updateStudent,
   deleteStudent,
-} from "../controller/finance.controller.js";
+} from "../Controller/finance.controller.js";
 import uploadDocument from "../Middleware/uploadDocument.js";
-
 const router = express.Router();
 
 const fileFields = uploadDocument.fields([
