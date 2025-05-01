@@ -38,7 +38,7 @@ export const registerStudent = async (req, res) => {
       mobile,
       password: hashedPassword,
       professionLogin,
-      image: req.file?.filename || null, // Use req.file instead of req.files?.titleImg
+      image: req.file?.filename || null,
       class: parentClass,
       student,
       children,
@@ -46,9 +46,10 @@ export const registerStudent = async (req, res) => {
 
     await newStudent.save();
 
-    res
-      .status(201)
-      .json({ message: "Student registered successfully", student: newStudent });
+    res.status(201).json({
+      message: "Student registered successfully",
+      student: newStudent,
+    });
   } catch (error) {
     console.error(error);
     res
@@ -59,7 +60,7 @@ export const registerStudent = async (req, res) => {
 
 export const getAllStudent = async (req, res) => {
   try {
-    const students = await Student.find().select("-password");
+    const students = await Student.find();
     res.status(200).json(students);
   } catch (error) {
     res
@@ -71,7 +72,7 @@ export const getAllStudent = async (req, res) => {
 export const getStudentById = async (req, res) => {
   try {
     const { id } = req.params;
-    const student = await Student.findOne({ id }).select("-password");
+    const student = await Student.findOne({ id });
 
     if (!student) {
       return res.status(404).json({ message: "Student not found." });
@@ -82,6 +83,28 @@ export const getStudentById = async (req, res) => {
     res
       .status(500)
       .json({ message: "Failed to fetch student", error: error.message });
+  }
+};
+
+export const getStudentBySchool = async (req, res) => {
+  try {
+    const { school } = req.params;
+
+    // Find students where at least one child is in the specified school
+    const students = await Student.find({ "currentCollege": school });
+
+    if (!students || students.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No students found for this school." });
+    }
+
+    res.status(200).json(students);
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to fetch students by school",
+      error: error.message,
+    });
   }
 };
 

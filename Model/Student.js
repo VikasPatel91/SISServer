@@ -4,14 +4,14 @@ import mongoose, { Mongoose } from "mongoose";
 const SubjectSchema = new mongoose.Schema({
   subject: { type: String },
   marks: { type: Number },
-}); 
+});
 
 // Child Schema
 const ChildSchema = new mongoose.Schema({
   class: { type: Number },
   course: { type: String },
   school: { type: String },
-  behavior: { type: String }, 
+  behavior: { type: String },
   gpa: { type: Number },
   attendance: { type: String },
   collegeName: { type: String },
@@ -29,6 +29,9 @@ const StudentSchema = new mongoose.Schema({
   class: { type: String },
   password: { type: String, required: true },
   image: { type: String, required: false },
+  currentIncome: { type: String },
+  currentCollege: { type: String },
+  currentCourse: { type: String },
   parent,
   children: [ChildSchema],
 });
