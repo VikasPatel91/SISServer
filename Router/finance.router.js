@@ -8,7 +8,7 @@ import {
 } from "../Controller/finance.controller.js";
 import uploadDocument from "../Middleware/uploadDocument.js";
 const router = express.Router();
-
+ 
 const fileFields = uploadDocument.fields([
   { name: "incomeCertificate", maxCount: 1 },
   { name: "feeStructure", maxCount: 1 },

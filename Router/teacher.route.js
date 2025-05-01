@@ -18,3 +18,4 @@ router.put("/:id", upload.single("image"), updateTeacher);
 router.delete("/:id", deleteTeacher);
 
 export default router;
+ 
