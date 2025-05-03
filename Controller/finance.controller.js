@@ -2,33 +2,51 @@ import Student from "../Model/finance.js";
 
 export const createStudent = async (req, res) => {
   try {
-    const { body, files } = req;
+    const userId = req.body.id;
 
-    const documents = {
-      incomeCertificate: files.incomeCertificate?.[0]?.filename || "",
-      feeStructure: files.feeStructure?.[0]?.filename || "",
-      bonafide: files.bonafide?.[0]?.filename || "",
-      bankPassbook: files.bankPassbook?.[0]?.filename || "",
-      photo: files.photo?.[0]?.filename || "",
-      signature: files.signature?.[0]?.filename || "",
+    const formData = {
+      fullName: req.body.fullName,
+      email: req.body.email,
+      dateOfBirth: req.body.dateOfBirth,
+      gender: req.body.gender,
+      phone: req.body.phone,
+      governmentId: req.body.governmentId,
+      institution: req.body.institution,
+      course: req.body.course,
+      year: req.body.year,
+      semester: req.body.semester,
+      cgpa: req.body.cgpa,
+      admissionType: req.body.admissionType,
+      familyIncome: req.body.familyIncome,
+      guardianOccupation: req.body.guardianOccupation,
+      accountNumber: req.body.accountNumber,
+      bankName: req.body.bankName,
+      ifsc: req.body.ifsc,
+      loanRequested: req.body.loanRequested,
+      loanPurpose: req.body.loanPurpose,
+      currentTime: req.body.currentTime,
+      incomeCertificate: req.files?.incomeCertificate?.[0]?.filename || "",
+      annualIncomeCertificate:
+        req.files?.annualIncomeCertificate?.[0]?.filename || "",
+      feeStructure: req.files?.feeStructure?.[0]?.filename || "",
+      bankPassbook: req.files?.bankPassbook?.[0]?.filename || "",
+      photo: req.files?.photo?.[0]?.filename || "",
+      signature: req.files?.signature?.[0]?.filename || "",
       academicRecords:
-        files.academicRecords?.map((file) => file.filename) || [],
+        req.files?.academicRecords?.map((file) => file.filename) || [],
     };
 
-    const newStudent = new Student({
-      ...body,
-      documents,
-    });
- 
-    await newStudent.save();
+    const student = new StudentModel(formData);
+    await student.save();
 
-    res.status(201).json({
-      message: "Student with documents created successfully",
-      student: newStudent,
+    return res.status(201).json({
+      message: "Application uploaded successfully",
+      data: student,
     });
   } catch (err) {
-    res.status(400).json({
-      message: "Failed to create student",
+    console.error("Error in createStudent:", err);
+    return res.status(500).json({
+      message: "Internal Server Error",
       error: err.message,
     });
   }

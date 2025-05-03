@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const teacherSchema = new Schema({
-  id: { 
+  id: {
     type: Number,
     required: true,
   },
@@ -15,11 +15,11 @@ const teacherSchema = new Schema({
     type: String,
     required: true,
   },
-  areaOfTeaching: {
+  subject: {
     type: String,
     required: true,
   },
-  mobile: {
+  mobileNumber: {
     type: String,
     required: true,
   },
@@ -37,6 +37,10 @@ const teacherSchema = new Schema({
   password: {
     type: String,
     required: true,
+  },
+  professionLogin: {
+    type: String,
+    default: "teacher",
   },
 });
 

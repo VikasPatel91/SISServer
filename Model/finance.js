@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const StudentSchema = new mongoose.Schema({
-  studentId: { type: String, required: true, unique: true },
+  id: { type: String, required: true, unique: true },
   fullName: { type: String, required: true },
   dateOfBirth: { type: Date, required: true },
   gender: { type: String, enum: ["Male", "Female", "Other"], required: true },
@@ -10,55 +10,53 @@ const StudentSchema = new mongoose.Schema({
   governmentId: { type: String, required: true },
 
   academicInfo: {
-    institution: String,
-    course: String,
-    year: Number,
-    semester: Number,
-    cgpa: Number,
-    admissionType: String,
+    institution: { type: String, required: true },
+    course: { type: String, required: true },
+    year: { type: Number, required: true },
+    semester: { type: Number, required: true },
+    cgpa: { type: Number, required: true },
+    admissionType: { type: String, required: true },
   },
 
   financialInfo: {
-    familyIncome: Number,
-    guardianOccupation: String,
-    annualIncomeCertificate: String,
+    familyIncome: { type: Number, required: true },
+    guardianOccupation: { type: String, required: true },
+    annualIncomeCertificate: { type: String, required: true },
     bankAccount: {
-      accountNumber: String,
-      bankName: String,
-      ifsc: String,
+      accountNumber: { type: String, required: true },
+      bankName: { type: String, required: true },
+      ifsc: { type: String, required: true },
     },
-    previousAid: String,
-    loanRequested: Number,
-    loanPurpose: String,
-    repaymentCapacityEstimate: Number,
+    loanRequested: { type: Number },
+    loanPurpose: { type: String, required: true },
   },
-       
+
   documents: {
-    incomeCertificate: String,
-    feeStructure: String,
-    bonafide: String,
-    bankPassbook: String,
-    photo: String,
-    signature: String,
-    academicRecords: [String],
+    incomeCertificate: { type: String, required: true },
+    feeStructure: { type: String, required: true },
+    bonafide: { type: String, required: true },
+    bankPassbook: { type: String, required: true },
+    photo: { type: String, required: true },
+    signature: { type: String, required: true },
+    academicRecords: [{ type: String }], // store file paths or URLs here
   },
 
   loanApplication: {
-    applicationId: String,
-    status: String,
-    dateOfApplication: Date,
-    approvedAmount: Number,
-    installmentPlan: [String],
-    disbursementStatus: [String],
-    repaymentStatus: String,
-    adminRemarks: String,
-    reviewedBy: String,
+    applicationId: { type: String, required: true },
+    status: { type: String, default: "Pending" },
+    dateOfApplication: { type: Date, default: Date.now },
+    approvedAmount: { type: Number },
+    installmentPlan: [{ type: String }],
+    disbursementStatus: [{ type: String }],
+    repaymentStatus: { type: String },
+    adminRemarks: { type: String },
+    reviewedBy: { type: String },
   },
 
   verification: {
-    eligibilityScore: Number,
-    verificationStatus: String,
+    eligibilityScore: { type: Number },
+    verificationStatus: { type: String, default: "Not Verified" },
   },
 });
 
-export default mongoose.model("finance", StudentSchema);
+export default mongoose.model("Finance", StudentSchema);

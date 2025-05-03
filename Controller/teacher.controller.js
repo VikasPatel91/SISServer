@@ -1,43 +1,66 @@
 import Teacher from "../Model/teacher.js";
 import bcrypt from "bcrypt";
+
 export const createTeacher = async (req, res) => {
   try {
     const {
       id,
-      fullName,
+      name,
       college,
       areaOfTeaching,
       mobile,
       email,
       qualification,
-      image,
+      professionLogin = "teacher",
       password,
     } = req.body;
+
+    if (!id || !name || !email || !mobile || !password || !college) {
+      return res.status(400).json({
+        message:
+          "ID, name, email, mobile, password, and college are required.",
+      });
+    }
+
+    const existingTeacher = await Teacher.findOne({ $or: [{ id }, { email }] });
+    if (existingTeacher) {
+      return res.status(409).json({
+        message: "Teacher with this ID or email already exists.",
+      });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 12);
+
+    const imageFilename = req.file?.filename || null;
+
     const newTeacher = new Teacher({
       id,
-      fullName,
+      name,
       college,
       areaOfTeaching,
       mobile,
-      qualification,
       email,
-      image: req.file?.filename || null,
+      qualification,
+      professionLogin,
       password: hashedPassword,
+      image: imageFilename,
     });
 
-    await newTeacher.save();
-    res
-      .status(201)
-      .json({ message: "Teacher created successfully", newTeacher });
-  } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Error creating teacher", error: err.message });
+    let saved = await newTeacher.save();
+
+    res.status(201).json({
+      message: "Teacher created successfully",
+      teacher: { saved },
+    });
+  } catch (error) {
+    console.error("Error creating teacher:", error);
+    res.status(500).json({
+      message: "Failed to create teacher",
+      error: error.message,
+    });
   }
 };
 
-// Get all teachers
 export const getAllTeachers = async (req, res) => {
   try {
     const teachers = await Teacher.find();

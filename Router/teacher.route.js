@@ -1,5 +1,5 @@
 import express from "express";
-import upload from "../Middleware/upload.js"; 
+import upload from "../Middleware/upload.js";
 import {
   createTeacher,
   getAllTeachers,
@@ -18,4 +18,3 @@ router.put("/:id", upload.single("image"), updateTeacher);
 router.delete("/:id", deleteTeacher);
 
 export default router;
- 

@@ -91,7 +91,7 @@ export const getStudentBySchool = async (req, res) => {
     const { school } = req.params;
 
     // Find students where at least one child is in the specified school
-    const students = await Student.find({ "currentCollege": school });
+    const students = await Student.find({ currentCollege: school });
 
     if (!students || students.length === 0) {
       return res
